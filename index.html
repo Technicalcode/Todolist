@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo-List</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        main {
+            width: 100%;
+            height: 100vh;
+            background-color: aquamarine;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .box {
+            width: 70vmin;
+            height: 70vmin;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 2rem;
+            border: none;
+            box-shadow: 0 0 1rem rgb(0, 0, 0);
+            flex-wrap: wrap;
+        }
+        input {
+            width: 55vmin;
+            height: 5vmin;
+            padding: 10px;
+            outline: none;
+            border: none;
+            box-shadow: 0 0 1rem rgb(4, 69, 20);
+            color: black;
+        }
+        .todo-list {
+            margin-top: 20px;
+            list-style: none;
+        }
+        .todo-list li {
+            position: relative;
+            background-color: rgb(14, 95, 115);
+            width: 55vmin;
+            height: 5vmin;
+            padding: 10px;
+             /* line-height: 1vmin; */
+            color: #fff;
+            padding-right: 30px;
+            flex-wrap: wrap;
+             
+        }
+        @media  (max-width: 500px) {
+            .todo-list li{
+                line-height: 1vmin;
+           
+               
+            }
+    }
+      
+        .todo-list li i {
+            color: #fff;
+            position: absolute;
+            right: 10px;
+           top: 10px;
+            transform: translateY(-50%);
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <div class="box">
+            <input type="text" id="item" autofocus placeholder="Write something...">
+            <ul class="todo-list">
+                <li>create video
+                    <i class="fa fa-times"></i>
+                </li>
+            </ul>
+        </div>
+    </main>
+
+    <script>
+        const item = document.querySelector("#item");
+        const todoList = document.querySelector(".todo-list");
+
+        item.addEventListener("keyup", function(event) {
+            if (event.key === "Enter" && item.value.trim() !== "") {
+                const li = document.createElement("li");
+                li.textContent = item.value;
+                const i = document.createElement("i");
+                i.classList.add("fa", "fa-times");
+                i.addEventListener("click", function() {
+                    todoList.removeChild(li);
+                });
+                li.appendChild(i);
+                todoList.appendChild(li);
+                item.value = "";
+            }
+        });
+
+        document.querySelectorAll(".todo-list i").forEach(icon => {
+            icon.addEventListener("click", function() {
+                const li = icon.parentElement;
+                todoList.removeChild(li);
+            });
+        });
+    </script>
+</body>
+</html>
